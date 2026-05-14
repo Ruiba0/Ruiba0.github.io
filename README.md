@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal Blog
 
-## Getting Started
+一个基于 `Next.js 16 + TypeScript + Tailwind CSS + Markdown` 的个人静态博客模板，默认适配 GitHub Pages 自动部署。
 
-First, run the development server:
+## 特性
+
+- 纯展示型博客，无后台管理
+- 本地 `content/posts/*.md` 或 `content/posts/*.mdx` 写文章
+- 首页、文章列表、文章详情、About 页面
+- 静态导出，适合 GitHub Pages
+- GitHub Actions 自动构建和发布
+- SEO 基础支持：`metadata`、`sitemap`、`robots`
+
+## 本地开发
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+打开 `http://localhost:3000` 查看页面。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 写文章
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+在 `content/posts` 目录下新增 `.md` 或 `.mdx` 文件，使用下面的 frontmatter：
 
-## Learn More
+```md
+---
+title: "文章标题"
+publishedAt: "2026-04-24"
+summary: "一句话摘要（可选，不写会自动取正文开头）"
+featured: false
+---
 
-To learn more about Next.js, take a look at the following resources:
+这里是正文内容。
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 自定义站点信息
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+站点名称、简介、作者等集中在：
 
-## Deploy on Vercel
+- `src/lib/site-config.ts`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## GitHub Pages 部署
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. 把仓库推到 GitHub。
+2. 默认发布分支使用 `main`。
+3. 在 GitHub 仓库中打开 `Settings -> Pages`。
+4. `Build and deployment` 选择 `GitHub Actions`。
+5. 推送到 `main` 后会自动构建并发布。
+
+工作流文件位于：
+
+- `.github/workflows/deploy.yml`
+
+## 构建静态产物
+
+```bash
+npm run build
+```
+
+构建完成后，静态文件会输出到 `out/`。
+
+## 预览导出结果
+
+```bash
+npm run preview
+```
